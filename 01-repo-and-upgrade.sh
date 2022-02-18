@@ -17,9 +17,8 @@ apt-get -y upgrade
 apt-get -y install vim curl git software-properties-common dirmngr screen mc apt-transport-https lsb-release ca-certificates
 ## install some pacakges ..in case they are not there
 ## net-tools for use for ipv4 mostly ..old style for Office LAN Network still IPv4
-apt-get -y install openssh-server iptraf telnet iputils-ping debconf-utils pwgen xfsprogs iftop htop multitail net-tools
+apt-get -y install openssh-server iptraf-ng telnet iputils-ping debconf-utils pwgen xfsprogs iftop htop multitail net-tools
 
-#mkdir /opt ; cd /opt ; git clone https://github.com/deependhulla/powermail-debian11.git 
 
 #hostname -f
 #ping `hostname -f` -c 2

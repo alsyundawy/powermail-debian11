@@ -65,17 +65,16 @@ export EDITOR=vi
 #source /etc/bash.bashrc
 
 
-### Time Server Setup
-cp /etc/systemd/timesyncd.conf /usr/local/src/old-timesyncd.conf-`date +%s`
-echo "[Time]" > /etc/systemd/timesyncd.conf
-echo "NTP=0.arch.pool.ntp.org 1.arch.pool.ntp.org 2.arch.pool.ntp.org 3.arch.pool.ntp.org" >> /etc/systemd/timesyncd.conf
-timedatectl set-timezone 'Asia/Kolkata'
+### Time Server Setup old code for timesyncd
+#cp /etc/systemd/timesyncd.conf /usr/local/src/old-timesyncd.conf-`date +%s`
+#echo "[Time]" > /etc/systemd/timesyncd.conf
+#echo "NTP=0.arch.pool.ntp.org 1.arch.pool.ntp.org 2.arch.pool.ntp.org 3.arch.pool.ntp.org" >> /etc/systemd/timesyncd.conf
+#timedatectl set-timezone 'Asia/Kolkata'
 #timedatectl set-ntp true
 #timedatectl status
-
 ## restart rsyslog show that mail.log shows proper time  --- but is removed in latter part of script bu using chrony
 ## code kept for backward compatility
-systemctl restart  systemd-timedated systemd-timesyncd  rsyslog 
+#systemctl restart  systemd-timedated systemd-timesyncd  rsyslog 
 
 
 
@@ -86,7 +85,7 @@ echo "iptables-persistent iptables-persistent/autosave_v4 boolean true" | debcon
 echo "iptables-persistent iptables-persistent/autosave_v6 boolean true" | debconf-set-selections
 
 ## postfix for basic use as default MTA and install build tool for any complication 
-## iptables is still usefull 
+## iptables is still usefull and other addon tools 
 apt-get -y install postfix iptables-persistent libimage-exiftool-perl build-essential gnupg2 zip rar unrar ftp poppler-utils tnef sudo whois
 
 ## install insstead of systemd-timesyncd for better time sync
@@ -96,4 +95,5 @@ echo 'DAEMON_OPTS="-F 1 -x "' >  /etc/default/chrony
 systemctl restart chrony 
 systemctl restart rsyslog 
 
-
+files/extra-files/etc-config-backup.sh
+echo ""

@@ -7,7 +7,7 @@ wget -c https://github.com/MailScanner/v5/releases/download/5.3.4-3/MailScanner-
 sh files/extra-perl-modules.sh
 
 dpkg -i /opt/MailScanner-5.3.4-3.noarch.deb
-/usr/sbin/ms-configure --MTA=postfix --installClamav=Y --installCPAN=Y --ignoreDeps=N --ramdiskSize=0
+/usr/sbin/ms-configure --MTA=postfix --installClamav=N --installCPAN=Y --ignoreDeps=N --ramdiskSize=0
 
 ## allow http://lists.mailscanner.info/pipermail/mailscanner/2012-February/099106.html
 ## 

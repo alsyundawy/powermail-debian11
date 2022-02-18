@@ -42,6 +42,7 @@ echo "GRANT ALL PRIVILEGES ON *.* TO mydbadmin@localhost IDENTIFIED BY '$MYSQLPA
 mysqladmin -uroot reload
 mysqladmin -uroot refresh
 
+files/extra-files/etc-config-backup.sh
 
 ## copy apache2 and other config html files cron and rsyslog 
 /bin/cp -pR files/web-rootdir/* /

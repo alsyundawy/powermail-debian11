@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## install postfix dovecot fetchmail and recoll for search-engine for archive use latter
-apt-get -y install postfix-mysql dovecot-mysql dovecot-sieve dovecot-managesieved dovecot-imapd dovecot-pop3d dovecot-sieve dovecot-antispam sendemail  dovecot-fts-xapian postfix-pcre postfwd whois opendkim opendkim-tools xapian-tools recoll libdatetime-format-mail-perl fetchmail
+apt-get -y install postfix-mysql dovecot-mysql dovecot-sieve dovecot-managesieved dovecot-imapd dovecot-pop3d dovecot-sieve dovecot-antispam sendemail  dovecot-fts-xapian postfix-pcre postfwd whois opendkim opendkim-tools xapian-tools recoll libdatetime-format-mail-perl fetchmail imapproxy
 
 echo `hostname -f` > /etc/mailname
 ## adding 89 so that migration from qmailtoaster setup is easier.
@@ -80,12 +80,12 @@ cd -
 /etc/init.d/opendkim start
 
 /home/powermail/bin/vadddomain `hostname -f`
-/home/powermail/bin/vaddalias root@`hostname -f` postmaster@`hostname -d`
-/home/powermail/bin/vaddalias clamav@`hostname -f` postmaster@`hostname -d`
-/home/powermail/bin/vaddalias abuse@`hostname -f` postmaster@`hostname -d`
-/home/powermail/bin/vaddalias fbl@`hostname -f` postmaster@`hostname -d`
+/home/powermail/bin/vaddalias root@`hostname -f` postmaster@`hostname -f`
+/home/powermail/bin/vaddalias clamav@`hostname -f` postmaster@`hostname -f`
+/home/powermail/bin/vaddalias abuse@`hostname -f` postmaster@`hostname -f`
+/home/powermail/bin/vaddalias fbl@`hostname -f` postmaster@`hostname -f`
+/home/powermail/bin/vaddalias www-data@`hostname -f` postmaster@`hostname -f`
 
-#/home/powermail/bin/vadddomain `hostname -d`
 #/home/powermail/bin/vaddalias root@`hostname -d` postmaster@`hostname -d`
 #/home/powermail/bin/vaddalias clamav@`hostname -d` postmaster@`hostname -d`
 #/home/powermail/bin/vaddalias abuse@`hostname -d` postmaster@`hostname -d`
