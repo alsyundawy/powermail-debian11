@@ -412,6 +412,34 @@ INSERT INTO `addressbook_user_settings` VALUES (1,1,NULL,'allcontacts');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `apikeys_key`
+--
+
+DROP TABLE IF EXISTS `apikeys_key`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `apikeys_key` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `accessToken` varchar(100) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `accessToken` (`accessToken`),
+  CONSTRAINT `apikeys_key_ibfk_1` FOREIGN KEY (`accessToken`) REFERENCES `core_auth_token` (`accessToken`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `apikeys_key`
+--
+
+LOCK TABLES `apikeys_key` WRITE;
+/*!40000 ALTER TABLE `apikeys_key` DISABLE KEYS */;
+/*!40000 ALTER TABLE `apikeys_key` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `bookmarks_bookmark`
 --
 
@@ -444,7 +472,7 @@ CREATE TABLE `bookmarks_bookmark` (
 
 LOCK TABLES `bookmarks_bookmark` WRITE;
 /*!40000 ALTER TABLE `bookmarks_bookmark` DISABLE KEYS */;
-INSERT INTO `bookmarks_bookmark` VALUES (1,1,1,'Group-Office','https://www.group-office.com','Group-Office is an enterprise CRM and groupware tool. Share projects, calendars, files and e-mail online with co-workers and clients. Easy to use and fully customizable.','e1aa68725830f537c0a2ccb44026b9cde1a4a4ce',1,0),(2,1,1,'Intermesh','https://www.intermesh.nl',NULL,NULL,1,0);
+INSERT INTO `bookmarks_bookmark` VALUES (1,1,1,'Group-Office','https://www.group-office.com','Group-Office is an enterprise CRM and groupware tool. Share projects, calendars, files and e-mail online with co-workers and clients. Easy to use and fully customizable.','e1aa68725830f537c0a2ccb44026b9cde1a4a4ce',1,0),(2,1,1,'Intermesh','https://www.intermesh.nl','Intermesh - Solide software ontwikeling sinds 2003',NULL,1,0);
 /*!40000 ALTER TABLE `bookmarks_bookmark` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -560,7 +588,7 @@ CREATE TABLE `cal_calendars_custom_fields` (
   `id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `cal_calendars_custom_fields_ibfk_1` FOREIGN KEY (`id`) REFERENCES `cal_calendars` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -670,7 +698,7 @@ CREATE TABLE `cal_events_custom_fields` (
   `id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `cal_events_custom_fields_ibfk_1` FOREIGN KEY (`id`) REFERENCES `cal_events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1110,7 +1138,7 @@ CREATE TABLE `core_acl` (
   KEY `ownedBy` (`ownedBy`),
   CONSTRAINT `core_acl_ibfk_1` FOREIGN KEY (`entityTypeId`) REFERENCES `core_entity` (`id`) ON DELETE CASCADE,
   CONSTRAINT `core_acl_ibfk_2` FOREIGN KEY (`ownedBy`) REFERENCES `core_user` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1119,7 +1147,7 @@ CREATE TABLE `core_acl` (
 
 LOCK TABLES `core_acl` WRITE;
 /*!40000 ALTER TABLE `core_acl` DISABLE KEYS */;
-INSERT INTO `core_acl` VALUES (1,1,'core_group.aclId','2022-02-17 10:09:07',11,1),(2,1,'core_group.aclId','2022-02-17 10:09:07',11,2),(3,1,'core_group.aclId','2022-02-17 10:09:07',11,3),(4,1,'core_group.aclId','2022-02-17 10:09:08',11,4),(5,1,'core_entity.defaultAclId','2022-02-17 10:09:08',NULL,NULL),(6,1,'core_entity.defaultAclId','2022-02-17 10:09:08',NULL,NULL),(7,1,'core_entity.defaultAclId','2022-02-17 10:09:08',NULL,NULL),(8,1,'go_templates.acl_id','2022-02-17 10:09:09',25,1),(9,1,'core_entity.defaultAclId','2022-02-17 10:09:08',NULL,NULL),(10,1,'addressbook_addressbook.aclId','2022-02-17 10:09:10',26,1),(11,1,'bookmarks_category.aclId','2022-02-17 10:09:11',30,1),(12,1,'notes_note_book.aclId','2022-02-17 10:09:16',35,65),(13,1,'core_entity.defaultAclId','2022-02-17 10:09:18',NULL,NULL),(14,1,'fs_templates.acl_id','2022-02-17 10:09:21',43,1),(15,1,'core_entity.defaultAclId','2022-02-17 10:09:21',NULL,NULL),(16,1,'fs_templates.acl_id','2022-02-17 10:09:21',43,2),(17,1,'readonly','2022-02-17 10:09:21',NULL,NULL),(18,1,'fs_folders.acl_id','2022-02-17 10:09:21',42,2),(19,1,'fs_folders.acl_id','2022-02-17 10:09:21',42,3),(20,1,'core_entity.defaultAclId','2022-02-17 10:09:34',NULL,NULL),(21,1,'tasks_tasklist.aclId','2022-02-17 10:09:34',38,1),(22,1,'core_entity.defaultAclId','2022-02-17 10:09:35',NULL,NULL),(23,1,'history_log_entry.aclId','2022-02-17 10:09:35',33,2),(24,1,'history_log_entry.aclId','2022-02-17 10:09:35',33,3),(25,1,'core_entity.defaultAclId','2022-02-17 10:09:35',NULL,NULL),(26,1,'addressbook_addressbook.aclId','2022-02-17 10:09:35',26,2),(27,1,'core_entity.defaultAclId','2022-02-17 10:09:35',NULL,NULL),(28,1,'core_entity.defaultAclId','2022-02-17 10:09:35',NULL,NULL),(29,1,'core_entity.defaultAclId','2022-02-17 10:09:35',NULL,NULL),(30,1,'core_entity.defaultAclId','2022-02-17 10:09:35',NULL,NULL),(31,1,'cal_calendars.acl_id','2022-02-17 10:09:35',39,1),(32,1,'history_log_entry.aclId','2022-02-17 10:11:28',33,9),(33,1,'history_log_entry.aclId','2022-02-17 10:11:57',33,10),(34,1,'history_log_entry.aclId','2022-02-17 10:12:12',33,11),(35,1,'history_log_entry.aclId','2022-02-17 10:14:21',33,12);
+INSERT INTO `core_acl` VALUES (1,1,'core_group.aclId','2022-02-18 11:49:18',11,1),(2,1,'core_group.aclId','2022-02-18 11:49:18',11,2),(3,1,'core_group.aclId','2022-02-18 11:49:18',11,3),(4,1,'core_group.aclId','2022-02-18 11:49:18',11,4),(5,1,'core_entity.defaultAclId','2022-02-18 11:49:18',NULL,NULL),(6,1,'core_entity.defaultAclId','2022-02-18 11:49:18',NULL,NULL),(7,1,'core_entity.defaultAclId','2022-02-18 11:49:18',NULL,NULL),(8,1,'go_templates.acl_id','2022-02-18 11:49:18',25,1),(9,1,'core_entity.defaultAclId','2022-02-18 11:49:18',NULL,NULL),(10,1,'addressbook_addressbook.aclId','2022-02-18 11:49:20',26,1),(11,1,'bookmarks_category.aclId','2022-02-18 11:49:20',30,1),(12,1,'notes_note_book.aclId','2022-02-18 11:49:28',35,65),(13,1,'core_entity.defaultAclId','2022-02-18 11:49:30',NULL,NULL),(14,1,'fs_templates.acl_id','2022-02-18 11:49:32',43,1),(15,1,'core_entity.defaultAclId','2022-02-18 11:49:32',NULL,NULL),(16,1,'fs_templates.acl_id','2022-02-18 11:49:32',43,2),(17,1,'fs_folders.acl_id','2022-02-18 11:58:31',42,8),(18,1,'core_search.aclId','2022-02-18 11:49:32',19,2),(19,1,'fs_folders.acl_id','2022-02-18 11:58:31',42,3),(20,1,'core_entity.defaultAclId','2022-02-18 11:50:00',NULL,NULL),(21,1,'tasks_tasklist.aclId','2022-02-18 11:50:00',38,1),(22,1,'core_entity.defaultAclId','2022-02-18 11:50:00',NULL,NULL),(23,1,'history_log_entry.aclId','2022-02-18 11:50:00',33,2),(24,1,'history_log_entry.aclId','2022-02-18 11:50:00',33,3),(25,1,'core_entity.defaultAclId','2022-02-18 11:50:00',NULL,NULL),(26,1,'addressbook_addressbook.aclId','2022-02-18 11:50:00',26,2),(27,1,'core_entity.defaultAclId','2022-02-18 11:50:00',NULL,NULL),(28,1,'core_entity.defaultAclId','2022-02-18 11:50:00',NULL,NULL),(29,1,'core_entity.defaultAclId','2022-02-18 11:50:00',NULL,NULL),(30,1,'core_entity.defaultAclId','2022-02-18 11:50:00',NULL,NULL),(31,1,'cal_calendars.acl_id','2022-02-18 11:58:31',39,1),(32,1,'core_entity.defaultAclId','2022-02-18 11:50:36',NULL,NULL),(33,1,'history_log_entry.aclId','2022-02-18 11:50:36',33,9),(34,1,'history_log_entry.aclId','2022-02-18 11:50:49',33,10),(35,1,'history_log_entry.aclId','2022-02-18 11:51:14',33,11),(36,1,'history_log_entry.aclId','2022-02-18 11:51:23',33,12),(37,1,'history_log_entry.aclId','2022-02-18 11:53:17',33,13),(38,1,'history_log_entry.aclId','2022-02-18 11:56:25',33,14),(39,1,'fb_acl','2022-02-18 11:57:36',NULL,NULL),(40,1,'history_log_entry.aclId','2022-02-18 11:57:36',33,15),(41,1,'history_log_entry.aclId','2022-02-18 11:57:36',33,16),(42,1,'history_log_entry.aclId','2022-02-18 11:58:49',33,19),(43,1,'history_log_entry.aclId','2022-02-18 12:08:28',33,20),(44,1,'history_log_entry.aclId','2022-02-18 12:08:28',33,21),(45,1,'history_log_entry.aclId','2022-02-18 12:08:51',33,22),(46,1,'history_log_entry.aclId','2022-02-18 12:08:58',33,23),(47,1,'history_log_entry.aclId','2022-02-18 12:09:31',33,24),(48,1,'history_log_entry.aclId','2022-02-18 12:11:28',33,25),(49,1,'history_log_entry.aclId','2022-02-18 12:11:37',33,26);
 /*!40000 ALTER TABLE `core_acl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1170,7 +1198,7 @@ CREATE TABLE `core_acl_group_changes` (
   KEY `group` (`groupId`),
   CONSTRAINT `all` FOREIGN KEY (`aclId`) REFERENCES `core_acl` (`id`) ON DELETE CASCADE,
   CONSTRAINT `group` FOREIGN KEY (`groupId`) REFERENCES `core_group` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=488 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1179,7 +1207,7 @@ CREATE TABLE `core_acl_group_changes` (
 
 LOCK TABLES `core_acl_group_changes` WRITE;
 /*!40000 ALTER TABLE `core_acl_group_changes` DISABLE KEYS */;
-INSERT INTO `core_acl_group_changes` VALUES (364,2,2,0,NULL),(365,3,3,0,NULL),(366,4,4,0,NULL),(367,5,2,0,NULL),(368,6,2,0,NULL),(369,7,2,0,NULL),(370,8,3,0,NULL),(371,11,3,0,NULL),(372,14,3,0,NULL),(373,16,3,0,NULL),(374,17,2,0,NULL),(375,26,3,0,NULL),(376,13,3,0,NULL),(377,31,3,0,NULL),(378,10,3,0,NULL),(379,12,3,0,NULL),(380,19,3,0,NULL);
+INSERT INTO `core_acl_group_changes` VALUES (457,2,2,0,NULL),(458,3,3,0,NULL),(459,4,4,0,NULL),(460,5,2,0,NULL),(461,6,2,0,NULL),(462,7,2,0,NULL),(463,8,3,0,NULL),(464,11,3,0,NULL),(465,14,3,0,NULL),(466,16,3,0,NULL),(467,17,2,0,NULL),(468,26,3,0,NULL),(469,13,3,0,NULL),(470,31,3,0,NULL),(471,10,3,0,NULL),(472,12,3,0,NULL),(473,19,3,0,NULL);
 /*!40000 ALTER TABLE `core_acl_group_changes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1268,7 +1296,7 @@ CREATE TABLE `core_auth_method` (
 
 LOCK TABLES `core_auth_method` WRITE;
 /*!40000 ALTER TABLE `core_auth_method` DISABLE KEYS */;
-INSERT INTO `core_auth_method` VALUES ('password',1,1),('googleauthenticator',5,2),('imap',25,3);
+INSERT INTO `core_auth_method` VALUES ('password',1,1),('googleauthenticator',5,2),('imap',26,3);
 /*!40000 ALTER TABLE `core_auth_method` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1293,7 +1321,7 @@ CREATE TABLE `core_auth_password` (
 
 LOCK TABLES `core_auth_password` WRITE;
 /*!40000 ALTER TABLE `core_auth_password` DISABLE KEYS */;
-INSERT INTO `core_auth_password` VALUES (1,'$2y$10$Splr2icvtiY2m4JCfuIIFebIocdNY3I91JRADw9YtF/k9UXquK.ki');
+INSERT INTO `core_auth_password` VALUES (1,'$2y$10$DBkLP0bWJ2gsqNuR7FU6Hu6PSxn/njy3kSiQpCgD.ai5y8cKd68ka');
 /*!40000 ALTER TABLE `core_auth_password` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1361,7 +1389,6 @@ CREATE TABLE `core_auth_token` (
 
 LOCK TABLES `core_auth_token` WRITE;
 /*!40000 ALTER TABLE `core_auth_token` DISABLE KEYS */;
-INSERT INTO `core_auth_token` VALUES ('620e1edec3b45bd835619d19864c5f848168396eb8808','620e1edf0407936553d61cbcbd7508dab06a905bbec76',1,'2022-02-17 10:09:34','2022-02-17 10:44:02','2022-02-17 10:14:02','192.168.29.4','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36','Macintosh','Chrome','password');
 /*!40000 ALTER TABLE `core_auth_token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1391,7 +1418,7 @@ CREATE TABLE `core_blob` (
 
 LOCK TABLES `core_blob` WRITE;
 /*!40000 ALTER TABLE `core_blob` DISABLE KEYS */;
-INSERT INTO `core_blob` VALUES ('e1aa68725830f537c0a2ccb44026b9cde1a4a4ce','image/x-icon',155,'www_group-office_com.ico','2022-02-17 10:09:12','2022-02-17 10:09:12','2022-02-17 11:09:12');
+INSERT INTO `core_blob` VALUES ('e1aa68725830f537c0a2ccb44026b9cde1a4a4ce','image/x-icon',155,'www_group-office_com.ico','2022-02-18 11:49:22','2022-02-18 11:49:22','2022-02-18 12:49:22');
 /*!40000 ALTER TABLE `core_blob` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1416,7 +1443,7 @@ CREATE TABLE `core_change` (
   KEY `entityId` (`entityId`),
   CONSTRAINT `core_change_ibfk_1` FOREIGN KEY (`entityTypeId`) REFERENCES `core_entity` (`id`) ON DELETE CASCADE,
   CONSTRAINT `core_change_ibfk_2` FOREIGN KEY (`aclId`) REFERENCES `core_acl` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1425,7 +1452,7 @@ CREATE TABLE `core_change` (
 
 LOCK TABLES `core_change` WRITE;
 /*!40000 ALTER TABLE `core_change` DISABLE KEYS */;
-INSERT INTO `core_change` VALUES (26,3,44,1,NULL,'2022-02-17 10:14:21',0),(27,12,33,1,35,'2022-02-17 10:14:21',0);
+INSERT INTO `core_change` VALUES (49,23,33,1,46,'2022-02-18 12:08:58',0),(50,24,33,2,47,'2022-02-18 12:09:31',0),(51,3,45,1,NULL,'2022-02-18 12:09:31',1),(52,6,45,2,NULL,'2022-02-18 12:11:28',0),(53,25,33,3,48,'2022-02-18 12:11:28',0),(54,26,33,4,49,'2022-02-18 12:11:37',0);
 /*!40000 ALTER TABLE `core_change` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1516,7 +1543,7 @@ CREATE TABLE `core_cron_job` (
 
 LOCK TABLES `core_cron_job` WRITE;
 /*!40000 ALTER TABLE `core_cron_job` DISABLE KEYS */;
-INSERT INTO `core_cron_job` VALUES (1,1,'Garbage collection','GarbageCollection','0 0 * * *',1,'2022-02-18 00:00:00',NULL,NULL,NULL);
+INSERT INTO `core_cron_job` VALUES (1,1,'Garbage collection','GarbageCollection','0 0 * * *',1,'2022-02-19 00:00:00',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `core_cron_job` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1723,7 +1750,7 @@ CREATE TABLE `core_entity` (
   KEY `defaultAclId` (`defaultAclId`),
   CONSTRAINT `core_entity_ibfk_1` FOREIGN KEY (`moduleId`) REFERENCES `core_module` (`id`) ON DELETE CASCADE,
   CONSTRAINT `core_entity_ibfk_2` FOREIGN KEY (`defaultAclId`) REFERENCES `core_acl` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1732,7 +1759,7 @@ CREATE TABLE `core_entity` (
 
 LOCK TABLES `core_entity` WRITE;
 /*!40000 ALTER TABLE `core_entity` DISABLE KEYS */;
-INSERT INTO `core_entity` VALUES (1,1,'Method','Method',0,NULL),(2,1,'Blob','Blob',0,NULL),(3,1,'Acl','Acl',0,NULL),(4,1,'Alert','Alert',0,NULL),(5,1,'AuthAllowGroup','AuthAllowGroup',0,NULL),(6,1,'CronJobSchedule','CronJobSchedule',0,NULL),(7,1,'EmailTemplate','EmailTemplate',0,27),(8,1,'EntityFilter','EntityFilter',0,5),(9,1,'Field','Field',0,NULL),(10,1,'FieldSet','FieldSet',0,6),(11,1,'Group','Group',0,7),(12,1,'Link','Link',0,NULL),(13,1,'Module','Module',0,NULL),(14,1,'OauthAccessToken','OauthAccessToken',0,NULL),(15,1,'OauthAuthCode','OauthAuthCode',0,NULL),(16,1,'OauthClient','OauthClient',0,NULL),(17,1,'PdfTemplate','PdfTemplate',0,NULL),(18,1,'RememberMe','RememberMe',0,NULL),(19,1,'Search','Search',0,NULL),(20,1,'SmtpAccount','SmtpAccount',0,28),(21,1,'SpreadSheetExport','SpreadSheetExport',0,NULL),(22,1,'Token','Token',0,NULL),(23,1,'User','User',0,NULL),(24,1,'UserDisplay','UserDisplay',0,NULL),(25,1,'Template','Template',0,9),(26,2,'AddressBook','AddressBook',0,25),(27,2,'Contact','Contact',0,NULL),(28,2,'Group','AddressBookGroup',0,NULL),(29,3,'Bookmark','Bookmark',0,NULL),(30,3,'Category','BookmarksCategory',0,29),(31,4,'Comment','Comment',0,NULL),(32,4,'Label','CommentLabel',0,NULL),(33,6,'LogEntry','LogEntry',1,22),(34,7,'Note','Note',0,NULL),(35,7,'NoteBook','NoteBook',0,30),(36,8,'Category','TaskCategory',0,NULL),(37,8,'Task','Task',0,NULL),(38,8,'Tasklist','Tasklist',0,20),(39,9,'Calendar','Calendar',0,13),(40,9,'Event','Event',0,NULL),(41,12,'File','File',0,NULL),(42,12,'Folder','Folder',0,NULL),(43,12,'Template','FilesTemplate',0,15),(44,25,'Server','ImapAuthServer',1,NULL);
+INSERT INTO `core_entity` VALUES (1,1,'Method','Method',0,NULL),(2,1,'Blob','Blob',0,NULL),(3,1,'Acl','Acl',0,NULL),(4,1,'Alert','Alert',0,NULL),(5,1,'AuthAllowGroup','AuthAllowGroup',0,NULL),(6,1,'CronJobSchedule','CronJobSchedule',0,NULL),(7,1,'EmailTemplate','EmailTemplate',0,27),(8,1,'EntityFilter','EntityFilter',0,5),(9,1,'Field','Field',0,NULL),(10,1,'FieldSet','FieldSet',0,6),(11,1,'Group','Group',0,7),(12,1,'Link','Link',0,NULL),(13,1,'Module','Module',0,NULL),(14,1,'OauthAccessToken','OauthAccessToken',0,NULL),(15,1,'OauthAuthCode','OauthAuthCode',0,NULL),(16,1,'OauthClient','OauthClient',0,NULL),(17,1,'PdfTemplate','PdfTemplate',0,NULL),(18,1,'RememberMe','RememberMe',0,NULL),(19,1,'Search','Search',0,NULL),(20,1,'SmtpAccount','SmtpAccount',0,28),(21,1,'SpreadSheetExport','SpreadSheetExport',0,NULL),(22,1,'Token','Token',0,NULL),(23,1,'User','User',0,NULL),(24,1,'UserDisplay','UserDisplay',0,NULL),(25,1,'Template','Template',0,9),(26,2,'AddressBook','AddressBook',0,25),(27,2,'Contact','Contact',0,NULL),(28,2,'Group','AddressBookGroup',0,NULL),(29,3,'Bookmark','Bookmark',0,NULL),(30,3,'Category','BookmarksCategory',0,29),(31,4,'Comment','Comment',0,NULL),(32,4,'Label','CommentLabel',0,NULL),(33,6,'LogEntry','LogEntry',4,32),(34,7,'Note','Note',0,NULL),(35,7,'NoteBook','NoteBook',0,30),(36,8,'Category','TaskCategory',0,NULL),(37,8,'Task','Task',0,NULL),(38,8,'Tasklist','Tasklist',0,20),(39,9,'Calendar','Calendar',0,13),(40,9,'Event','Event',0,NULL),(41,12,'File','File',0,NULL),(42,12,'Folder','Folder',0,NULL),(43,12,'Template','FilesTemplate',0,15),(44,18,'Key','Key',0,NULL),(45,26,'Server','ImapAuthServer',2,NULL);
 /*!40000 ALTER TABLE `core_entity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1893,7 +1920,7 @@ CREATE TABLE `core_module` (
 
 LOCK TABLES `core_module` WRITE;
 /*!40000 ALTER TABLE `core_module` DISABLE KEYS */;
-INSERT INTO `core_module` VALUES (1,'core','core',277,0,0,1,NULL,NULL,NULL),(2,'addressbook','community',71,101,0,1,NULL,NULL,NULL),(3,'bookmarks','community',11,102,0,1,NULL,NULL,NULL),(4,'comments','community',29,103,0,1,NULL,NULL,NULL),(5,'googleauthenticator','community',3,104,0,1,NULL,NULL,NULL),(6,'history','community',5,105,0,1,NULL,NULL,NULL),(7,'notes','community',58,106,0,1,NULL,NULL,NULL),(8,'tasks','community',29,107,0,1,NULL,NULL,NULL),(9,'calendar',NULL,184,108,0,1,'2022-02-17 10:09:17',NULL,NULL),(10,'cron',NULL,0,108,1,1,'2022-02-17 10:09:18',NULL,NULL),(11,'email',NULL,104,108,0,1,'2022-02-17 10:09:18',NULL,NULL),(12,'files',NULL,140,108,0,1,'2022-02-17 10:09:19',NULL,NULL),(13,'jitsimeet',NULL,0,108,0,1,'2022-02-17 10:09:21',NULL,NULL),(14,'sieve',NULL,0,108,0,1,'2022-02-17 10:09:21',NULL,NULL),(15,'summary',NULL,31,108,0,1,'2022-02-17 10:09:21',NULL,NULL),(16,'sync',NULL,58,108,0,1,'2022-02-17 10:09:22',NULL,NULL),(17,'tools',NULL,0,108,1,1,'2022-02-17 10:09:22',NULL,NULL),(18,'dav',NULL,1,108,0,1,'2022-02-17 10:11:36',NULL,NULL),(19,'caldav',NULL,32,108,0,1,'2022-02-17 10:11:16',NULL,NULL),(20,'calendarexport',NULL,0,108,0,1,'2022-02-17 10:11:22',NULL,NULL),(21,'carddav','community',0,108,0,1,NULL,NULL,NULL),(22,'customcss',NULL,0,109,1,1,'2022-02-17 10:11:33',NULL,NULL),(23,'favorites',NULL,8,109,0,1,'2022-02-17 10:11:48',NULL,NULL),(24,'freebusypermissions',NULL,6,109,0,1,'2022-02-17 10:11:51',NULL,NULL),(25,'imapauthenticator','community',1,109,0,1,NULL,NULL,NULL),(26,'notesencrypt','community',0,110,0,1,NULL,NULL,NULL),(27,'reminders',NULL,0,111,0,1,'2022-02-17 10:12:20',NULL,NULL),(28,'smime',NULL,16,111,0,1,'2022-02-17 10:12:27',NULL,NULL),(29,'zpushadmin',NULL,7,111,0,1,'2022-02-17 10:12:41',NULL,NULL);
+INSERT INTO `core_module` VALUES (1,'core','core',277,0,0,1,NULL,NULL,NULL),(2,'addressbook','community',71,101,0,1,NULL,NULL,NULL),(3,'bookmarks','community',11,102,0,1,NULL,NULL,NULL),(4,'comments','community',29,103,0,1,NULL,NULL,NULL),(5,'googleauthenticator','community',3,104,0,1,NULL,NULL,NULL),(6,'history','community',5,105,0,1,NULL,NULL,NULL),(7,'notes','community',58,106,0,1,NULL,NULL,NULL),(8,'tasks','community',29,107,0,1,NULL,NULL,NULL),(9,'calendar',NULL,184,108,0,1,'2022-02-18 11:49:29',NULL,NULL),(10,'cron',NULL,0,108,1,1,'2022-02-18 11:49:30',NULL,NULL),(11,'email',NULL,104,108,0,1,'2022-02-18 11:49:30',NULL,NULL),(12,'files',NULL,140,108,0,1,'2022-02-18 11:49:31',NULL,NULL),(13,'jitsimeet',NULL,0,108,0,1,'2022-02-18 11:49:32',NULL,NULL),(14,'sieve',NULL,0,108,0,1,'2022-02-18 11:49:32',NULL,NULL),(15,'summary',NULL,31,108,0,1,'2022-02-18 11:49:32',NULL,NULL),(16,'sync',NULL,58,108,0,1,'2022-02-18 11:49:33',NULL,NULL),(17,'tools',NULL,0,108,1,1,'2022-02-18 11:49:34',NULL,NULL),(18,'apikeys','community',2,108,0,1,NULL,NULL,NULL),(19,'dav',NULL,1,109,0,1,'2022-02-18 11:50:57',NULL,NULL),(20,'caldav',NULL,32,109,0,1,'2022-02-18 11:50:40',NULL,NULL),(21,'calendarexport',NULL,0,109,0,1,'2022-02-18 11:50:44',NULL,NULL),(22,'carddav','community',0,109,0,1,NULL,NULL,NULL),(23,'customcss',NULL,0,110,1,1,'2022-02-18 11:50:54',NULL,NULL),(24,'favorites',NULL,8,110,0,1,'2022-02-18 11:51:07',NULL,NULL),(25,'freebusypermissions',NULL,6,110,0,1,'2022-02-18 11:51:10',NULL,NULL),(26,'imapauthenticator','community',1,110,0,1,NULL,NULL,NULL),(27,'notesencrypt','community',0,111,0,1,NULL,NULL,NULL),(28,'smime',NULL,16,112,0,1,'2022-02-18 11:51:40',NULL,NULL),(29,'zpushadmin',NULL,7,112,0,1,'2022-02-18 11:51:48',NULL,NULL);
 /*!40000 ALTER TABLE `core_module` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2073,7 +2100,7 @@ CREATE TABLE `core_permission` (
 
 LOCK TABLES `core_permission` WRITE;
 /*!40000 ALTER TABLE `core_permission` DISABLE KEYS */;
-INSERT INTO `core_permission` VALUES (1,2,0),(2,3,0),(3,3,0),(4,3,0),(5,3,0),(7,3,0),(8,3,0),(9,3,0),(11,3,0),(12,3,0),(13,3,0),(14,3,0),(15,3,0),(16,3,0),(18,3,0),(19,3,0),(20,3,0),(23,3,0),(24,3,0),(27,3,0),(28,3,0),(29,3,0);
+INSERT INTO `core_permission` VALUES (1,2,0),(2,3,0),(3,3,0),(4,3,0),(5,3,0),(7,3,0),(8,3,0),(9,3,0),(11,3,0),(12,3,0),(13,3,0),(14,3,0),(15,3,0),(16,3,0),(19,3,0),(20,3,0),(21,3,0),(24,3,0),(25,3,0),(28,3,0),(29,3,0);
 /*!40000 ALTER TABLE `core_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2102,7 +2129,7 @@ CREATE TABLE `core_search` (
   KEY `core_search_entityTypeId_filter_modifiedAt_aclId_index` (`entityTypeId`,`filter`,`modifiedAt`,`aclId`),
   CONSTRAINT `core_search_ibfk_1` FOREIGN KEY (`entityTypeId`) REFERENCES `core_entity` (`id`) ON DELETE CASCADE,
   CONSTRAINT `core_search_ibfk_2` FOREIGN KEY (`aclId`) REFERENCES `core_acl` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2111,7 +2138,7 @@ CREATE TABLE `core_search` (
 
 LOCK TABLES `core_search` WRITE;
 /*!40000 ALTER TABLE `core_search` DISABLE KEYS */;
-INSERT INTO `core_search` VALUES (1,1,12,'users','users',42,NULL,'2022-02-17 10:09:21',17),(2,2,12,'groupofficeadmin','users/groupofficeadmin',42,NULL,'2022-02-17 10:09:21',18),(3,3,12,'Public','users/groupofficeadmin/Public',42,NULL,'2022-02-17 10:09:21',19),(4,4,12,'calendar','calendar',42,NULL,'2022-02-17 10:09:35',17),(5,5,12,'System Administrator','calendar/System Administrator',42,NULL,'2022-02-17 10:09:36',31);
+INSERT INTO `core_search` VALUES (1,1,12,'users','users',42,NULL,'2022-02-17 10:09:21',17),(2,2,12,'groupofficeadmin','users/groupofficeadmin',42,NULL,'2022-02-17 10:09:21',18),(3,3,12,'Public','users/groupofficeadmin/Public',42,NULL,'2022-02-18 11:49:32',19),(4,4,12,'calendar','calendar',42,NULL,'2022-02-17 10:09:35',17),(5,5,12,'System Administrator','calendar/System Administrator',42,NULL,'2022-02-18 11:50:00',31),(6,6,12,'public','public',42,NULL,'2022-02-18 11:41:56',17),(7,7,12,'customcss','public/customcss',42,NULL,'2022-02-18 11:57:37',17);
 /*!40000 ALTER TABLE `core_search` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2137,7 +2164,7 @@ CREATE TABLE `core_search_word` (
 
 LOCK TABLES `core_search_word` WRITE;
 /*!40000 ALTER TABLE `core_search_word` DISABLE KEYS */;
-INSERT INTO `core_search_word` VALUES (1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5'),(5,'administrator'),(5,'administratorcalendar/system'),(4,'calendar'),(4,'foldercalendarcalendar'),(2,'foldergroupofficeadminusers/groupofficeadmin'),(3,'folderpublicusers/groupofficeadmin/public'),(5,'foldersystem'),(1,'folderusersusers'),(2,'groupofficeadmin'),(3,'public'),(5,'system'),(1,'users');
+INSERT INTO `core_search_word` VALUES (1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5'),(6,'6'),(7,'7'),(5,'administrator'),(5,'administratorcalendar/system'),(4,'calendar'),(7,'customcss'),(4,'foldercalendarcalendar'),(7,'foldercustomcsspublic/customcss'),(2,'foldergroupofficeadminusers/groupofficeadmin'),(6,'folderpublicpublic'),(3,'folderpublicusers/groupofficeadmin/public'),(5,'foldersystem'),(1,'folderusersusers'),(2,'groupofficeadmin'),(3,'public'),(6,'public'),(5,'system'),(1,'users');
 /*!40000 ALTER TABLE `core_search_word` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2163,7 +2190,7 @@ CREATE TABLE `core_setting` (
 
 LOCK TABLES `core_setting` WRITE;
 /*!40000 ALTER TABLE `core_setting` DISABLE KEYS */;
-INSERT INTO `core_setting` VALUES (1,'cacheClearedAt','1645092761'),(1,'corsAllowOrigin',''),(1,'databaseVersion','6.6.43'),(1,'defaultAuthenticationDomain','powermail.mydomainname.com'),(1,'demoDataAsked','1'),(1,'language','en'),(1,'locale','C.UTF-8'),(1,'primaryColor','0D47A1'),(1,'smtpEncryptionVerifyCertificate',''),(1,'smtpPassword',NULL),(1,'smtpPort','25'),(1,'systemEmail','postmaster@powermail.mydomainname.com'),(1,'URL','https://powermail.mydomainname.com/groupoffice/'),(1,'userAddressBookId','2'),(1,'welcomeShown','1');
+INSERT INTO `core_setting` VALUES (1,'cacheClearedAt','1645186138'),(1,'corsAllowOrigin',''),(1,'databaseVersion','6.6.43'),(1,'defaultAuthenticationDomain',''),(1,'demoDataAsked','1'),(1,'language','en'),(1,'locale','C.UTF-8'),(1,'primaryColor','0D47A1'),(1,'smtpPassword',NULL),(1,'systemEmail','postmaster@powermail.mydomainname.com'),(1,'URL','https://powermail.mydomainname.com/groupoffice/'),(1,'userAddressBookId','2'),(1,'welcomeShown','1');
 /*!40000 ALTER TABLE `core_setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2300,7 +2327,7 @@ CREATE TABLE `core_user` (
 
 LOCK TABLES `core_user` WRITE;
 /*!40000 ALTER TABLE `core_user` DISABLE KEYS */;
-INSERT INTO `core_user` VALUES (1,'groupofficeadmin','System Administrator',NULL,1,'postmaster@powermail.mydomainname.com','postmaster@powermail.mydomainname.com',NULL,NULL,'2022-02-17 10:09:34','2022-02-17 10:09:08','2022-02-17 10:09:34','d-m-Y',1,'G:i','.',',','€',1,20,'Europe/Amsterdam','summary','en','Paper',1,'first_name',0,0,0,0,1,0,';','\"',0,NULL,0,0,NULL,0,0,0,0,'users/groupofficeadmin',0);
+INSERT INTO `core_user` VALUES (1,'groupofficeadmin','System Administrator',NULL,1,'postmaster@powermail.mydomainname.com','postmaster@powermail.mydomainname.com',NULL,NULL,'2022-02-18 12:08:28','2022-02-18 11:49:18','2022-02-18 12:08:28','d-m-Y',1,'G:i','.',',','€',3,20,'Europe/Amsterdam','summary','en','Paper',1,'first_name',0,0,0,0,1,0,';','\"',0,NULL,0,0,NULL,0,0,0,0,'users/groupofficeadmin',0);
 /*!40000 ALTER TABLE `core_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2764,11 +2791,11 @@ DROP TABLE IF EXISTS `em_links`;
 CREATE TABLE `em_links` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT 0,
-  `from` varchar(255) DEFAULT NULL,
-  `to` text DEFAULT NULL,
-  `subject` varchar(255) DEFAULT NULL,
+  `from` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `to` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `time` int(11) NOT NULL DEFAULT 0,
-  `path` varchar(255) DEFAULT NULL,
+  `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ctime` int(11) NOT NULL,
   `mtime` int(11) NOT NULL DEFAULT 0,
   `muser_id` int(11) NOT NULL DEFAULT 0,
@@ -2777,7 +2804,7 @@ CREATE TABLE `em_links` (
   PRIMARY KEY (`id`),
   KEY `account_id` (`user_id`),
   KEY `uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3003,7 +3030,7 @@ CREATE TABLE `fb_acl` (
   `user_id` int(11) NOT NULL,
   `acl_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`,`acl_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3012,6 +3039,7 @@ CREATE TABLE `fb_acl` (
 
 LOCK TABLES `fb_acl` WRITE;
 /*!40000 ALTER TABLE `fb_acl` DISABLE KEYS */;
+INSERT INTO `fb_acl` VALUES (1,39);
 /*!40000 ALTER TABLE `fb_acl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3120,7 +3148,7 @@ CREATE TABLE `fs_files_custom_fields` (
   `id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fs_files_custom_fields_ibfk_1` FOREIGN KEY (`id`) REFERENCES `fs_files` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3184,7 +3212,7 @@ CREATE TABLE `fs_folders` (
   KEY `name` (`name`),
   KEY `parent_id` (`parent_id`),
   KEY `visible` (`visible`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3193,7 +3221,7 @@ CREATE TABLE `fs_folders` (
 
 LOCK TABLES `fs_folders` WRITE;
 /*!40000 ALTER TABLE `fs_folders` DISABLE KEYS */;
-INSERT INTO `fs_folders` VALUES (1,1,0,'users',0,17,NULL,1,1645092561,1645092561,1,1,1,NULL,0),(1,2,1,'groupofficeadmin',1,18,NULL,1,1645092561,1645092561,1,1,1,NULL,0),(1,3,2,'Public',0,19,NULL,1,1645092561,1645092561,1,1,0,NULL,0),(1,4,0,'calendar',0,17,NULL,1,1645092575,1645092575,1,1,1,NULL,0),(1,5,4,'System Administrator',0,31,NULL,1,1645092575,1645092575,1,1,1,NULL,0);
+INSERT INTO `fs_folders` VALUES (1,1,0,'users',0,17,NULL,1,1645184972,1645184972,1,1,1,NULL,0),(1,2,1,'groupofficeadmin',1,18,NULL,1,1645184972,1645184972,1,1,1,NULL,0),(1,3,2,'Public',0,19,NULL,1,1645184972,1645184972,1,1,0,NULL,0),(1,4,0,'calendar',0,17,NULL,1,1645185000,1645185000,1,1,1,NULL,0),(1,5,4,'System Administrator',0,31,NULL,1,1645185000,1645185000,1,1,1,NULL,0),(1,6,0,'public',0,17,NULL,1,1645185457,1645185457,1,1,1,NULL,0),(1,7,6,'customcss',0,0,NULL,1,1645185457,1645185457,1,1,0,NULL,0),(1,8,0,'addressbook',0,17,NULL,1,1645185511,1645185511,1,1,0,NULL,0),(1,9,0,'log',0,17,NULL,1,1645185511,1645185511,1,1,1,NULL,0);
 /*!40000 ALTER TABLE `fs_folders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3332,7 +3360,7 @@ CREATE TABLE `fs_shared_root_folders` (
   `user_id` int(11) NOT NULL,
   `folder_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`,`folder_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3642,7 +3670,7 @@ CREATE TABLE `go_cron` (
 
 LOCK TABLES `go_cron` WRITE;
 /*!40000 ALTER TABLE `go_cron` DISABLE KEYS */;
-INSERT INTO `go_cron` VALUES (1,'Calendar publisher',1,'0','*','*','*','*','*','GO\\Calendar\\Cron\\CalendarPublisher',0,1645095600,0,0,NULL,0,'[]'),(2,'Email Reminders',1,'*/5','*','*','*','*','*','GO\\Base\\Cron\\EmailReminders',0,1645093200,1645092901,1645092901,NULL,0,'[]'),(3,'Calculate disk usage',1,'0','0','*','*','*','*','GO\\Base\\Cron\\CalculateDiskUsage',0,1645142400,0,0,NULL,0,'[]');
+INSERT INTO `go_cron` VALUES (1,'Calendar publisher',1,'0','*','*','*','*','*','GO\\Calendar\\Cron\\CalendarPublisher',0,1645189200,1645185601,1645185601,NULL,0,'[]'),(2,'Email Reminders',1,'*/5','*','*','*','*','*','GO\\Base\\Cron\\EmailReminders',0,1645186500,1645186201,1645186201,NULL,0,'[]'),(3,'Calculate disk usage',1,'0','0','*','*','*','*','GO\\Base\\Cron\\CalculateDiskUsage',0,1645228800,0,0,NULL,0,'[]');
 /*!40000 ALTER TABLE `go_cron` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3998,7 +4026,7 @@ CREATE TABLE `go_settings` (
 
 LOCK TABLES `go_settings` WRITE;
 /*!40000 ALTER TABLE `go_settings` DISABLE KEYS */;
-INSERT INTO `go_settings` VALUES (0,'cron_last_run','1645092901'),(0,'zpushadmin_can_connect','1'),(1,'email_always_request_notification','0'),(1,'email_always_respond_to_notifications','0'),(1,'email_font_size','14px'),(1,'email_show_bcc','0'),(1,'email_show_cc','1'),(1,'email_show_from','1'),(1,'email_skip_unknown_recipients','0'),(1,'email_sort_email_addresses_by_time','1'),(1,'email_use_plain_text_markup','0');
+INSERT INTO `go_settings` VALUES (0,'cron_last_run','1645186321'),(1,'cron_last_run','1645185482'),(1,'email_always_request_notification','0'),(1,'email_always_respond_to_notifications','0'),(1,'email_font_size','14px'),(1,'email_show_bcc','0'),(1,'email_show_cc','1'),(1,'email_show_from','1'),(1,'email_skip_unknown_recipients','0'),(1,'email_sort_email_addresses_by_time','1'),(1,'email_use_plain_text_markup','0'),(1,'zpushadmin_can_connect','1');
 /*!40000 ALTER TABLE `go_settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4053,7 +4081,7 @@ CREATE TABLE `go_templates` (
 
 LOCK TABLES `go_templates` WRITE;
 /*!40000 ALTER TABLE `go_templates` DISABLE KEYS */;
-INSERT INTO `go_templates` VALUES (1,1,0,'Default',8,'Message-ID: <b641d13a2ef1b7187d9e35453cade004@192.168.29.103>\r\nDate: Thu, 17 Feb 2022 10:09:08 +0000\r\nFrom: \r\nMIME-Version: 1.0\r\nContent-Type: multipart/alternative;\r\n boundary=\"_=_swift_1645092548_32bbd26b7496ad826ed5655cac206e7f_=_\"\r\nX-Mailer: Group-Office (6.6.43)\r\n\r\n\r\n--_=_swift_1645092548_32bbd26b7496ad826ed5655cac206e7f_=_\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\nHi {contact:firstName},\r\n\r\n{body}\r\n\r\nBest regards\r\n\r\n\r\n{user:displayName}\r\n\r\n--_=_swift_1645092548_32bbd26b7496ad826ed5655cac206e7f_=_\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\nHi<gotpl if=3D\"contact:firstName\"> {contact:firstName},</gotpl><br />\r\n<br />\r\n{body}<br />\r\n<br />\r\nBest regards<br />\r\n<br />\r\n<br />\r\n{user:displayName}<br />\r\n\r\n--_=_swift_1645092548_32bbd26b7496ad826ed5655cac206e7f_=_--\r\n',NULL,'');
+INSERT INTO `go_templates` VALUES (1,1,0,'Default',8,'Message-ID: <41a49c0104ed7b40f4ddc6be3677accb@192.168.29.103>\r\nDate: Fri, 18 Feb 2022 11:49:18 +0000\r\nFrom: \r\nMIME-Version: 1.0\r\nContent-Type: multipart/alternative;\r\n boundary=\"_=_swift_1645184958_a3a5d469870d94fdca5b709b75f22035_=_\"\r\nX-Mailer: Group-Office (6.6.43)\r\n\r\n\r\n--_=_swift_1645184958_a3a5d469870d94fdca5b709b75f22035_=_\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\nHi {contact:firstName},\r\n\r\n{body}\r\n\r\nBest regards\r\n\r\n\r\n{user:displayName}\r\n\r\n--_=_swift_1645184958_a3a5d469870d94fdca5b709b75f22035_=_\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\nHi<gotpl if=3D\"contact:firstName\"> {contact:firstName},</gotpl><br />\r\n<br />\r\n{body}<br />\r\n<br />\r\nBest regards<br />\r\n<br />\r\n<br />\r\n{user:displayName}<br />\r\n\r\n--_=_swift_1645184958_a3a5d469870d94fdca5b709b75f22035_=_--\r\n',NULL,'');
 /*!40000 ALTER TABLE `go_templates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4140,7 +4168,7 @@ CREATE TABLE `history_log_entry` (
   CONSTRAINT `fk_log_entry_core_acl1` FOREIGN KEY (`aclId`) REFERENCES `core_acl` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
   CONSTRAINT `fk_log_entry_core_entity1` FOREIGN KEY (`entityTypeId`) REFERENCES `core_entity` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_log_entry_core_user` FOREIGN KEY (`createdBy`) REFERENCES `core_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4149,7 +4177,7 @@ CREATE TABLE `history_log_entry` (
 
 LOCK TABLES `history_log_entry` WRITE;
 /*!40000 ALTER TABLE `history_log_entry` DISABLE KEYS */;
-INSERT INTO `history_log_entry` VALUES (1,1,'System Administrator','{\"id\":1,\"role\":1,\"name\":\"System Administrator\"}','2022-02-17 10:09:34',1,21,0,38,1,'192.168.29.4'),(2,2,'System Administrator','{\"lastLogin\":[\"2022-02-17T10:09:34+00:00\",null],\"loginCount\":[1,0],\"addressBookSettings\":[{\"defaultAddressBookId\":1,\"sortBy\":\"name\",\"userId\":1,\"startIn\":\"allcontacts\",\"lastAddressBookId\":null},null],\"notesSettings\":[{\"defaultNoteBookId\":65,\"lastNoteBookIds\":[65],\"userId\":1,\"rememberLastItems\":false},null],\"tasksSettings\":[{\"defaultTasklistId\":1,\"lastTasklistIds\":[1],\"userId\":1,\"rememberLastItems\":false},null],\"calendarSettings\":[{\"calendar_id\":0,\"background\":\"EBF1E2\",\"reminder\":null,\"show_statuses\":true,\"check_conflict\":true,\"user_id\":1},null],\"syncSettings\":[{\"user_id\":1,\"account_id\":0,\"noteBooks\":[{\"userId\":1,\"noteBookId\":65,\"isDefault\":true}],\"addressBooks\":[{\"userId\":1,\"addressBookId\":1,\"isDefault\":true}],\"tasklists\":[]},null]}','2022-02-17 10:09:35',1,23,0,23,1,'192.168.29.4'),(3,4,'groupofficeadmin [192.168.29.4]',NULL,'2022-02-17 10:09:35',1,24,0,23,1,'192.168.29.4'),(4,1,'Users','{\"id\":2,\"name\":\"Users\",\"salutationTemplate\":\"Dear [if {{contact.prefixes}}]{{contact.prefixes}}[else][if !{{contact.gender}}]Ms.\\/Mr.[else][if {{contact.gender}}==\\\"M\\\"]Mr.[else]Ms.[\\/if][\\/if][\\/if][if {{contact.middleName}}] {{contact.middleName}}[\\/if] {{contact.lastName}}\"}','2022-02-17 10:09:35',1,26,0,26,2,'192.168.29.4'),(5,1,'calendar','{\"user_id\":1,\"parent_id\":0,\"name\":\"calendar\",\"visible\":0,\"acl_id\":17,\"thumbs\":1,\"ctime\":1645092575,\"mtime\":1645092575,\"muser_id\":1,\"quota_user_id\":1,\"readonly\":1,\"apply_state\":0,\"id\":4}','2022-02-17 10:09:35',1,17,0,42,4,'192.168.29.4'),(6,1,'System Administrator','{\"user_id\":1,\"parent_id\":4,\"name\":\"System Administrator\",\"visible\":0,\"acl_id\":0,\"thumbs\":1,\"ctime\":1645092575,\"mtime\":1645092575,\"muser_id\":1,\"quota_user_id\":1,\"readonly\":1,\"apply_state\":0,\"id\":5}','2022-02-17 10:09:35',1,17,0,42,5,'192.168.29.4'),(7,2,'System Administrator','{\"acl_id\":[0,31]}','2022-02-17 10:09:36',1,31,0,42,5,'192.168.29.4'),(8,1,'System Administrator','{\"group_id\":1,\"user_id\":1,\"acl_id\":31,\"start_hour\":0,\"end_hour\":0,\"time_interval\":1800,\"public\":0,\"shared_acl\":0,\"show_bdays\":0,\"show_completed_tasks\":1,\"comment\":\"\",\"project_id\":0,\"tasklist_id\":0,\"files_folder_id\":5,\"show_holidays\":1,\"enable_ics_import\":0,\"ics_import_url\":\"\",\"tooltip\":\"\",\"version\":1,\"name\":\"System Administrator\",\"id\":1}','2022-02-17 10:09:36',1,31,0,39,1,'192.168.29.4'),(9,1,'carddav','{\"id\":21,\"name\":\"carddav\",\"package\":\"community\",\"version\":0,\"sort_order\":108,\"checkDepencencies\":false}','2022-02-17 10:11:28',1,32,0,13,21,'192.168.29.4'),(10,1,'imapauthenticator','{\"id\":25,\"name\":\"imapauthenticator\",\"package\":\"community\",\"version\":1,\"sort_order\":109,\"checkDepencencies\":false}','2022-02-17 10:11:57',1,33,0,13,25,'192.168.29.4'),(11,1,'notesencrypt','{\"id\":26,\"name\":\"notesencrypt\",\"package\":\"community\",\"version\":0,\"sort_order\":110,\"checkDepencencies\":false}','2022-02-17 10:12:12',1,34,0,13,26,'192.168.29.4'),(12,1,'go\\modules\\community\\imapauthenticator\\model\\Server','{\"id\":3,\"imapHostname\":\"127.0.0.1\",\"imapEncryption\":null,\"imapValidateCertificate\":false,\"smtpHostname\":\"127.0.0.1\",\"smtpUseUserCredentials\":true,\"smtpEncryption\":\"tls\",\"smtpValidateCertificate\":false,\"domains\":[{\"id\":3,\"serverId\":3,\"name\":\"powermail.mydomainname.com\"}],\"groups\":[{\"groupId\":3,\"serverId\":3}]}','2022-02-17 10:14:21',1,35,0,44,3,'192.168.29.4');
+INSERT INTO `history_log_entry` VALUES (1,1,'System Administrator','{\"id\":1,\"role\":1,\"name\":\"System Administrator\"}','2022-02-18 11:50:00',1,21,0,38,1,'192.168.29.4'),(2,2,'System Administrator','{\"lastLogin\":[\"2022-02-18T11:49:59+00:00\",null],\"loginCount\":[1,0],\"addressBookSettings\":[{\"defaultAddressBookId\":1,\"sortBy\":\"name\",\"userId\":1,\"startIn\":\"allcontacts\",\"lastAddressBookId\":null},null],\"notesSettings\":[{\"defaultNoteBookId\":65,\"lastNoteBookIds\":[65],\"userId\":1,\"rememberLastItems\":false},null],\"tasksSettings\":[{\"defaultTasklistId\":1,\"lastTasklistIds\":[1],\"userId\":1,\"rememberLastItems\":false},null],\"calendarSettings\":[{\"calendar_id\":0,\"background\":\"EBF1E2\",\"reminder\":null,\"show_statuses\":true,\"check_conflict\":true,\"user_id\":1},null],\"syncSettings\":[{\"user_id\":1,\"account_id\":0,\"noteBooks\":[{\"userId\":1,\"noteBookId\":65,\"isDefault\":true}],\"addressBooks\":[{\"userId\":1,\"addressBookId\":1,\"isDefault\":true}],\"tasklists\":[]},null]}','2022-02-18 11:50:00',1,23,0,23,1,'192.168.29.4'),(3,4,'groupofficeadmin [192.168.29.4]',NULL,'2022-02-18 11:50:00',1,24,0,23,1,'192.168.29.4'),(4,1,'Users','{\"id\":2,\"name\":\"Users\",\"salutationTemplate\":\"Dear [if {{contact.prefixes}}]{{contact.prefixes}}[else][if !{{contact.gender}}]Ms.\\/Mr.[else][if {{contact.gender}}==\\\"M\\\"]Mr.[else]Ms.[\\/if][\\/if][\\/if][if {{contact.middleName}}] {{contact.middleName}}[\\/if] {{contact.lastName}}\"}','2022-02-18 11:50:00',1,26,0,26,2,'192.168.29.4'),(5,1,'calendar','{\"user_id\":1,\"parent_id\":0,\"name\":\"calendar\",\"visible\":0,\"acl_id\":17,\"thumbs\":1,\"ctime\":1645185000,\"mtime\":1645185000,\"muser_id\":1,\"quota_user_id\":1,\"readonly\":1,\"apply_state\":0,\"id\":4}','2022-02-18 11:50:00',1,17,0,42,4,'192.168.29.4'),(6,1,'System Administrator','{\"user_id\":1,\"parent_id\":4,\"name\":\"System Administrator\",\"visible\":0,\"acl_id\":0,\"thumbs\":1,\"ctime\":1645185000,\"mtime\":1645185000,\"muser_id\":1,\"quota_user_id\":1,\"readonly\":1,\"apply_state\":0,\"id\":5}','2022-02-18 11:50:00',1,17,0,42,5,'192.168.29.4'),(7,2,'System Administrator','{\"acl_id\":[0,31]}','2022-02-18 11:50:00',1,31,0,42,5,'192.168.29.4'),(8,1,'System Administrator','{\"group_id\":1,\"user_id\":1,\"acl_id\":31,\"start_hour\":0,\"end_hour\":0,\"time_interval\":1800,\"public\":0,\"shared_acl\":0,\"show_bdays\":0,\"show_completed_tasks\":1,\"comment\":\"\",\"project_id\":0,\"tasklist_id\":0,\"files_folder_id\":5,\"show_holidays\":1,\"enable_ics_import\":0,\"ics_import_url\":\"\",\"tooltip\":\"\",\"version\":1,\"name\":\"System Administrator\",\"id\":1}','2022-02-18 11:50:00',1,31,0,39,1,'192.168.29.4'),(9,1,'apikeys','{\"id\":18,\"name\":\"apikeys\",\"package\":\"community\",\"version\":2,\"sort_order\":108,\"checkDepencencies\":false}','2022-02-18 11:50:36',1,33,0,13,18,'192.168.29.4'),(10,1,'carddav','{\"id\":22,\"name\":\"carddav\",\"package\":\"community\",\"version\":0,\"sort_order\":109,\"checkDepencencies\":false}','2022-02-18 11:50:49',1,34,0,13,22,'192.168.29.4'),(11,1,'imapauthenticator','{\"id\":26,\"name\":\"imapauthenticator\",\"package\":\"community\",\"version\":1,\"sort_order\":110,\"checkDepencencies\":false}','2022-02-18 11:51:14',1,35,0,13,26,'192.168.29.4'),(12,1,'notesencrypt','{\"id\":27,\"name\":\"notesencrypt\",\"package\":\"community\",\"version\":0,\"sort_order\":111,\"checkDepencencies\":false}','2022-02-18 11:51:23',1,36,0,13,27,'192.168.29.4'),(13,1,'go\\modules\\community\\imapauthenticator\\model\\Server','{\"id\":3,\"imapHostname\":\"127.0.0.1\",\"imapEncryption\":null,\"imapValidateCertificate\":false,\"smtpHostname\":\"127.0.0.1\",\"smtpUseUserCredentials\":true,\"smtpValidateCertificate\":false,\"domains\":[{\"id\":3,\"serverId\":3,\"name\":\"powermail.mydomainname.com\"}],\"groups\":[{\"groupId\":3,\"serverId\":3}]}','2022-02-18 11:53:17',1,37,0,45,3,'192.168.29.4'),(14,5,'groupofficeadmin [192.168.29.4]',NULL,'2022-02-18 11:56:25',1,38,0,23,1,'192.168.29.4'),(15,2,'System Administrator','{\"lastLogin\":[\"2022-02-18T11:57:36+00:00\",\"2022-02-18T11:49:59+00:00\"],\"loginCount\":[2,1],\"freebusySettings\":[{\"user_id\":1,\"acl_id\":39},null]}','2022-02-18 11:57:36',1,40,0,23,1,'192.168.29.4'),(16,4,'groupofficeadmin [192.168.29.4]',NULL,'2022-02-18 11:57:36',1,41,0,23,1,'192.168.29.4'),(17,1,'public','{\"user_id\":1,\"parent_id\":0,\"name\":\"public\",\"visible\":0,\"acl_id\":17,\"thumbs\":1,\"ctime\":1645185457,\"mtime\":1645185457,\"muser_id\":1,\"quota_user_id\":1,\"readonly\":1,\"apply_state\":0,\"id\":6}','2022-02-18 11:57:37',1,17,0,42,6,'192.168.29.4'),(18,1,'customcss','{\"user_id\":1,\"parent_id\":6,\"name\":\"customcss\",\"visible\":0,\"acl_id\":0,\"thumbs\":1,\"ctime\":1645185457,\"mtime\":1645185457,\"muser_id\":1,\"quota_user_id\":1,\"readonly\":0,\"apply_state\":0,\"id\":7}','2022-02-18 11:57:37',1,17,0,42,7,'192.168.29.4'),(19,5,'groupofficeadmin [192.168.29.4]',NULL,'2022-02-18 11:58:49',1,42,0,23,1,'192.168.29.4'),(20,2,'System Administrator','{\"lastLogin\":[\"2022-02-18T12:08:28+00:00\",\"2022-02-18T11:57:36+00:00\"],\"loginCount\":[3,2]}','2022-02-18 12:08:28',1,43,0,23,1,'192.168.29.4'),(21,4,'groupofficeadmin [192.168.29.4]',NULL,'2022-02-18 12:08:28',1,44,0,23,1,'192.168.29.4'),(22,2,'imapauthenticator','{\"enabled\":[false,true]}','2022-02-18 12:08:51',1,45,0,13,26,'192.168.29.4'),(23,2,'imapauthenticator','{\"enabled\":[true,false]}','2022-02-18 12:08:58',1,46,0,13,26,'192.168.29.4'),(24,3,'go\\modules\\community\\imapauthenticator\\model\\Server',NULL,'2022-02-18 12:09:31',1,47,0,45,3,'192.168.29.4'),(25,1,'go\\modules\\community\\imapauthenticator\\model\\Server','{\"id\":6,\"imapHostname\":\"127.0.0.1\",\"imapEncryption\":null,\"imapValidateCertificate\":false,\"smtpHostname\":\"127.0.0.1\",\"smtpUseUserCredentials\":true,\"smtpValidateCertificate\":false,\"domains\":[{\"id\":6,\"serverId\":6,\"name\":\"powermail.mydomainname.com\"}],\"groups\":[{\"groupId\":3,\"serverId\":6}]}','2022-02-18 12:11:28',1,48,0,45,6,'192.168.29.4'),(26,5,'groupofficeadmin [192.168.29.4]',NULL,'2022-02-18 12:11:37',1,49,0,23,1,'192.168.29.4');
 /*!40000 ALTER TABLE `history_log_entry` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4175,7 +4203,7 @@ CREATE TABLE `imapauth_server` (
   `smtpEncryption` enum('tls','ssl') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `smtpValidateCertificate` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4184,7 +4212,7 @@ CREATE TABLE `imapauth_server` (
 
 LOCK TABLES `imapauth_server` WRITE;
 /*!40000 ALTER TABLE `imapauth_server` DISABLE KEYS */;
-INSERT INTO `imapauth_server` VALUES (3,'127.0.0.1',143,NULL,0,0,'127.0.0.1',587,NULL,NULL,1,'tls',0);
+INSERT INTO `imapauth_server` VALUES (6,'127.0.0.1',143,NULL,0,0,'127.0.0.1',587,NULL,NULL,1,NULL,0);
 /*!40000 ALTER TABLE `imapauth_server` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4202,7 +4230,7 @@ CREATE TABLE `imapauth_server_domain` (
   PRIMARY KEY (`id`),
   KEY `serverId` (`serverId`),
   CONSTRAINT `imapauth_server_domain_ibfk_1` FOREIGN KEY (`serverId`) REFERENCES `imapauth_server` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4211,7 +4239,7 @@ CREATE TABLE `imapauth_server_domain` (
 
 LOCK TABLES `imapauth_server_domain` WRITE;
 /*!40000 ALTER TABLE `imapauth_server_domain` DISABLE KEYS */;
-INSERT INTO `imapauth_server_domain` VALUES (3,3,'powermail.mydomainname.com');
+INSERT INTO `imapauth_server_domain` VALUES (6,6,'powermail.mydomainname.com');
 /*!40000 ALTER TABLE `imapauth_server_domain` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4238,7 +4266,7 @@ CREATE TABLE `imapauth_server_group` (
 
 LOCK TABLES `imapauth_server_group` WRITE;
 /*!40000 ALTER TABLE `imapauth_server_group` DISABLE KEYS */;
-INSERT INTO `imapauth_server_group` VALUES (3,3);
+INSERT INTO `imapauth_server_group` VALUES (6,3);
 /*!40000 ALTER TABLE `imapauth_server_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4644,7 +4672,7 @@ CREATE TABLE `sync_addressbook_user` (
   KEY `userId` (`userId`),
   CONSTRAINT `sync_addressbook_user_ibfk_1` FOREIGN KEY (`addressBookId`) REFERENCES `addressbook_addressbook` (`id`) ON DELETE CASCADE,
   CONSTRAINT `sync_addressbook_user_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `core_user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5241,4 +5269,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-17 10:15:08
+-- Dump completed on 2022-02-18 12:12:30

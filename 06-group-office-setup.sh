@@ -4,8 +4,8 @@ mkdir /home/groupoffice/ 2>/dev/null
 chmod 777 /home/groupoffice/
 chown -R www-data:www-data /home/groupoffice/
 
-echo "Downloading Latest GroupOffice 6.6.x"
-echo "deb http://repo.group-office.com/ sixfive main" > /etc/apt/sources.list.d/groupoffice.list
+echo "Downloading Latest GroupOffice 64-php-71"
+echo "deb http://repo.group-office.com/ 64-php-71 main" > /etc/apt/sources.list.d/groupoffice.list
 apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0758838B
 apt-get update
 systemctl stop cron
@@ -29,7 +29,7 @@ echo "And install one with all Module enabled and IMAP Auth activated"
 echo "with groupofficeadmin user and random password in : /usr/local/src/groupofficeadmin-pass"
 echo "Y" | mysqladmin drop groupoffice -uroot 1>/dev/null 2>/dev/null
 mysqladmin create groupoffice -uroot
-/bin/cp -p files/groupoffice6.5-db.sql /tmp/groupoffice-db-tmp.sql
+/bin/cp -p files/groupoffice-db.sql /tmp/groupoffice-db-tmp.sql
 sed -i "s/powermail\.mydomainname\.com/`hostname -f`/" /tmp/groupoffice-db-tmp.sql
 sed -i "s/mydomainname\.com/`hostname -d`/" /tmp/groupoffice-db-tmp.sql
 mysql groupoffice < /tmp/groupoffice-db-tmp.sql

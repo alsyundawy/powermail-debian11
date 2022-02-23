@@ -5,12 +5,14 @@ chmod -c 644 /etc/apt/trusted.gpg.d/mariadb_release_signing_key.asc
 
 echo 'deb [arch=amd64] https://mariadb.mirror.liquidtelecom.com/repo/10.6/debian bullseye main' > /etc/apt/sources.list.d/mariadb-and-php.list
 
-echo "Updating Repo List to get Mariadb 10.6 Repo up for rocksdb.";
+echo "Updating Repo List to get Mariadb 10.6 Repo up";
 apt-get update
 apt-get -y upgrade
 
 ## installs 
-apt-get -y install mariadb-server php apache2 libapache2-mod-php php-mysql php-cli php-common php-imap php-ldap php-xml php-curl php-mbstring php-zip php-apcu php-gd php-imagick imagemagick mcrypt memcached php-memcached php-bcmath dbconfig-common libapache2-mod-php php-intl php-mysql php-intl libdbd-mysql-perl certbot python3-certbot-apache automysqlbackup mariadb-plugin-rocksdb
+apt-get -y install mariadb-server php apache2 libapache2-mod-php php-mysql php-cli php-common php-imap php-ldap php-xml php-curl php-mbstring php-zip php-apcu php-gd php-imagick imagemagick mcrypt memcached php-memcached php-bcmath dbconfig-common libapache2-mod-php php-intl php-mysql php-intl libdbd-mysql-perl certbot python3-certbot-apache automysqlbackup 
+## to use more advance database storage type
+# apt-get install mariadb-plugin-rocksdb
 
 a2enmod actions > /dev/null 2>&1
 a2enmod proxy_fcgi > /dev/null 2>&1
@@ -48,21 +50,6 @@ files/extra-files/etc-config-backup.sh
 /bin/cp -pR files/web-rootdir/* /
 
 
-
-## for PHP composer package
-#echo "installing php composer"
-#cd /opt
-#php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-#php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-#php composer-setup.php
-#php -r "unlink('composer-setup.php');"
-#cd -
-
-echo "---------------------------------------------";
-echo "Displaying version to verify its PHP and MariaDB"
-php -v | grep cli
-dpkg -l mariadb-server apache2 | egrep 'apache|maria' 
-echo "---------------------------------------------";
 
 
 ### changing timezone to Asia Kolkata

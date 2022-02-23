@@ -19,7 +19,7 @@ dpkg -i /opt/MailScanner-5.3.4-3.noarch.deb
 ## Then, reload AppArmor /etc/init.d/apparmor reload
 ## Else Error : clam  : lstat() failed on: /var/spool/MailScanner/incoming/
 /bin/cp -pRv files/mailscanner-files/usr.sbin.clamd /etc/apparmor.d/
-systemctl restart apparmor.service 
+systemctl restart apparmor.service 2>/dev/null 
 
 sed -i "s/run_mailscanner=0/run_mailscanner=1/" /etc/MailScanner/defaults 
 /bin/cp -p files/mailscanner-files/header_checks /etc/postfix/header_checks
@@ -41,7 +41,7 @@ chown postfix:root /var/spool/postfix/
 ## so that mailwatch can read
 chmod 744 /var/spool/postfix/incoming/
 chmod 744 /var/spool/postfix/hold/
-chown -R postfix  /var/log/clamav
+chown -R postfix  /var/log/clamav 2>/dev/null
 ## Mail-Archive Tool
 mkdir /archivedata
 mkdir /archivedata/mail-archive-uncompress 2>/dev/null
@@ -69,8 +69,8 @@ echo $MYSQLPASSMW > /usr/local/src/mailwatch-admin-pass
 echo "adding user mailwatch with password for gui access , password in /usr/local/src/mailwatch-admin-pass";
 echo "INSERT INTO \`mailscanner\`.\`users\` (\`username\`, \`password\`, \`fullname\`, \`type\`, \`quarantine_report\`, \`spamscore\`, \`highspamscore\`, \`noscan\`, \`quarantine_rcpt\`) VALUES ('mailwatch', MD5('$MYSQLPASSMW'), 'Mail Admin', 'A', '0', '0', '0', '0', NULL);"  | mysql;
 
-touch /var/log/clamav/clamav.log
-chmod 666 /var/log/clamav/clamav.log
+touch /var/log/clamav/clamav.log 2>/dev/null
+chmod 666 /var/log/clamav/clamav.log 2>/dev/null
 
 /bin/cp -pR files/mailscanner-files/MailWatch-1.2.17/MailScanner_perl_scripts/*.pm /usr/share/MailScanner/perl/custom/
 /bin/cp -pR files/mailscanner-files/MailWatch-1.2.17/tools/Cron_jobs/*.php /usr/local/bin/
@@ -92,7 +92,7 @@ systemctl restart mailscanner
 systemctl restart dovecot
 systemctl restart postfix
 systemctl restart opendkim
-systemctl restart clamav-daemon
+systemctl restart clamav-daemon 2>/dev/null
 systemctl restart cron
 
 chmod 666 /var/spool/MailScanner/incoming/SpamAssassin.cache.db 2>/dev/null 1>/dev/null
