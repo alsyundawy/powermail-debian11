@@ -4,7 +4,7 @@
 
 wget -c "https://files.phpmyadmin.net/phpMyAdmin/5.1.3/phpMyAdmin-5.1.3-english.tar.gz" -O /tmp/phpMyAdmin-5.1.3-english.tar.gz
 cd /tmp
-tar -xvzf phpMyAdmin-5.1.3-english.tar.gz 
+tar -xzf phpMyAdmin-5.1.3-english.tar.gz 
 cd -
 mv -v /tmp/phpMyAdmin-5.1.3-english /var/www/html/dbadminonweb
 
