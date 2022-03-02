@@ -1,0 +1,54 @@
+--- EmailClient.js	2022-03-02 15:36:16.547323395 +0530
++++ EmailClient-new-archive.js	2022-03-02 15:36:45.172607845 +0530
+@@ -657,7 +657,26 @@
+ 					});
+ 				},
+ 				scope: this
+-			}),'->',
++			}),
++
++this.archiveButton=new Ext.Button({
++disabled:'false',
++iconCls: 'ic-search',
++text: 'ArchiveSearch',
++handler: function(){
++var tsw=screen.width-20;
++var tsh=screen.width-20;
++tLeftPosition = (screen.width) ? (screen.width-tsw)/2 : 0;
++tTopPosition = (screen.height) ? (screen.height-tsh)/2 : 0;
++temailarchivenewwindow=window.open('/archivemail/','nameemailarchive','height='+tsh+',width='+tsw+',top='+tTopPosition+',left='+tLeftPosition+',scrollbars=yes,menubar=yes,resizable');
++if (window.focus) {temailarchivenewwindow.focus()}
++
++},
++scope: this
++}),
++
++
++'->',
+ 			{
+ 				hidden: !GO.email.saveAsItems || !GO.email.saveAsItems.length,
+ 				iconCls: 'ic-save',
+@@ -721,7 +740,7 @@
+ 				this.messagePanel.do_not_mark_as_read = data.do_not_mark_as_read;
+ 			//this.messagePanel.uid=record.data['uid'];	
+ 			
+-			
++			this.archiveButton.setDisabled(false);	
+ 			this.replyAllButton.setDisabled(this.readOnly && !this._permissionDelegated);
+ 			this.replyButton.setDisabled(this.readOnly && !this._permissionDelegated);
+ 			this.forwardButton.setDisabled(this.readOnly && !this._permissionDelegated);
+@@ -749,6 +768,7 @@
+ 	}, this);
+ 
+ 	this.messagePanel.on('reset', function(){
++		this.archiveButton.setDisabled(false);
+ 		this.replyAllButton.setDisabled(true);
+ 		this.replyButton.setDisabled(true);
+ 		this.forwardButton.setDisabled(true);
+@@ -2013,4 +2033,4 @@
+ 	GO.email.showComposer(config);
+ 
+ 	
+-};
+\ No newline at end of file
++};
