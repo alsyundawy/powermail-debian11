@@ -41,7 +41,8 @@ echo $GOPASSVPOP > /usr/local/src/groupofficeadmin-pass
 
 php /usr/local/src/groupoffice65-groupofficeadmin-password-reset.php
 
-
+sudo -u www-data php /usr/share/groupoffice/cli.php core/System/upgrade
+echo "GroupOffice Uptodate done.."
 systemctl start cron
 
 
